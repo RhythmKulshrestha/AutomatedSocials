@@ -13,20 +13,8 @@ def handle_rate_limit(sleep_time):
         st.write(f"Resuming in {i} seconds...")
 
 def run(operation):
-    # Attempt to initialize TwitterManager instance with rate limit handling
-    try:
-        twitter = TwitterManager()
-        # Verify initialization and display success if no issues
-        st.success("Twitter API initialized successfully!")
-    except tweepy.TooManyRequests as e:
-        # Display rate limit message if initialization hits rate limit
-        sleep_time = int(e.response.headers.get("x-rate-limit-reset", 15*60))  # Defaults to 15 minutes
-        handle_rate_limit(sleep_time)
-        return  # Exit to prevent further attempts
-    except Exception as e:
-        # Catch any other exceptions and display the error message
-        st.error(f"Failed to initialize Twitter API: {e}")
-        return  # Exit to prevent further attempts
+    
+    twitter = TwitterManager()
 
     # Check if Twitter API was successfully initialized before proceeding
     if twitter:
